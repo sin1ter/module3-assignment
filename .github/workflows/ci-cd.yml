@@ -26,13 +26,6 @@ jobs:
       - name: Run tests
         run: npm run check 
 
-      - name: Upload artifact 
-        uses: actions/upload-artifact@v4
-        with:
-          name: build_folder
-          path: ./build
-
-
   build:
     needs: test
     runs-on: ubuntu-latest
@@ -45,21 +38,20 @@ jobs:
         with:
           node-version: 18
 
-      - name: artifacts
+      - name: Create artifacts
         run: |
-          mkdir build
-          cd build
-          echo "hello world" hello.txt
-
+            mkdir -p build  
+            echo "hello world" > build/hello.txt  
+            
       - name: Upload artifact 
         uses: actions/upload-artifact@v4
         with:
-          name: build_folder
-          path: ./build
+            name: build_folder
+            path: ./build
 
 
   deploy:
-    needs: test
+    needs: build
     runs-on: self-hosted
     steps:
       - name: Checkout repository
