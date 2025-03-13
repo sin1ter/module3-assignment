@@ -9,6 +9,7 @@ on:
       - main
 
 jobs:
+  # Step 1: Test Job
   test:
     runs-on: ubuntu-latest
     steps:
@@ -51,7 +52,6 @@ jobs:
       - name: Show test results
         run: |
           ls -a
-          cat ./test-results  # Assuming test results are saved in a file
 
 
       - name: Install dependencies
